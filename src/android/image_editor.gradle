@@ -1,0 +1,8 @@
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.github.skonb:ImageEditor-Android:+"
+}

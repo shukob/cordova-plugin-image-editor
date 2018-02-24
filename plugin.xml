@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin id="cordova-plugin-image-editor" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+    <name>Image Editor Cordova Plugin</name>
+    <description></description>
+    <license>MIT</license>
+    <keywords></keywords>
+    <repo>https://github.com/skonb/ImageEditor-cordova.git</repo>
+    <issue>https://github.com/skonb/ImageEditor-cordova/issues</issue>
+
+    <!-- android -->
+    <platform name="android">
+        <js-module name="image_editor_plugin" src="www/image-editor-plugin.js">
+            <runs />
+
+            <!-- This is the window variable name you want, like window.MyCordovaPlugin -->
+            <clobbers target="ImageEditorPlugin" />
+        </js-module>
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="ImageEditor">
+                <param name="android-package" value="is.w_ax.cordova.imageeditor.ImageEditorPlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/is/w_ax/cordova/imageeditor/ImageEditorPlugin.java" target-dir="src/is/w_ax/cordova/imageeditor/" />
+				<source-file src="src/android/is/w_ax/cordova/imageeditor/FileUtils.java" target-dir="src/is/w_ax/cordova/imageeditor/" />
+				<source-file src="src/android/is/w_ax/cordova/imageeditor/PhotoLoader.java" target-dir="src/is/w_ax/cordova/imageeditor/" />
+        <framework custom="true" src="src/android/image_editor.gradle" type="gradleReference" />
+
+    </platform>
+
+</plugin>

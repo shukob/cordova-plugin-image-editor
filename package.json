@@ -1,0 +1,11 @@
+{
+  "name": "cordova-plugin-image-editor",
+  "version": "1.0.0",
+  "cordova": {
+    "id": "cordova-plugin-image-editor",
+    "platforms": [
+      "android",
+    ]
+  },
+  "description": "A https://github.com/siwangqishiq/ImageEditor-Android wrappter for cordova"
+}
