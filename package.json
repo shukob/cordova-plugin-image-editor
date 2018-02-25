@@ -7,5 +7,22 @@
       "android",
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/skonb/cordova-plugin-image-editor.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "ecosystem:phonegap",
+    "cordova-android",
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": "Shumpei Kobayashi",
+  "license": "MIT",
   "description": "A https://github.com/siwangqishiq/ImageEditor-Android wrappter for cordova"
 }
