@@ -1,10 +1,10 @@
 {
   "name": "cordova-plugin-image-editor",
-  "version": "1.0.0",
+  "version": "0.0.1-dev",
   "cordova": {
     "id": "cordova-plugin-image-editor",
     "platforms": [
-      "android",
+      "android"
     ]
   },
   "repository": {
@@ -14,7 +14,7 @@
   "keywords": [
     "ecosystem:cordova",
     "ecosystem:phonegap",
-    "cordova-android",
+    "cordova-android"
   ],
   "engines": [
     {
