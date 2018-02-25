@@ -1,7 +1,7 @@
 
 var exec = require('cordova/exec');
 
-var PLUGIN_NAME = 'ImageEditorPlugin';
+var PLUGIN_NAME = 'ImageEditor';
 
 var ImageEditorPlugin = {
   edit: function(url, success, failure) {

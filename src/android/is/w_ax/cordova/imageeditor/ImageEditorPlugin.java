@@ -8,8 +8,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.target.Target;
 import com.xinlan.imageeditlibrary.editimage.EditImageActivity;
 
 import org.apache.cordova.CallbackContext;
@@ -21,6 +22,7 @@ import org.json.JSONException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by skonb on 2018/02/24.
@@ -28,7 +30,8 @@ import java.io.File;
 
 public class ImageEditorPlugin extends CordovaPlugin {
 
-    protected final static String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+    protected final static String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.INTERNET};
     protected static final int ACTION_REQUEST_EDITIMAGE = 100;
     protected static final int PERMISSION_REQUEST = 1000;
     public static final int PERMISSION_DENIED_ERROR = 20;
@@ -52,31 +55,31 @@ public class ImageEditorPlugin extends CordovaPlugin {
         }
     }
 
-    public void downloadImageAndOpenEditor(String url, String destination) {
-        Picasso.with(cordova.getContext()).
-                load(url).
-                into(new PhotoLoader(destination, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        File outputFile = FileUtils.genEditFile();
-                        Intent intent = new Intent(cordova.getContext(), EditImageActivity.class);
-                        intent.putExtra("file_path", destination);
-                        intent.putExtra("extra_output", outputFile.getAbsolutePath());
-                        cordova.startActivityForResult(ImageEditorPlugin.this, intent, ACTION_REQUEST_EDITIMAGE);
-                    }
-
-                    @Override
-                    public void onError() {
-                        callbackContext.error("Failed to download image");
-                    }
-                }));
+    public void downloadImageAndOpenEditor(String url) {
+        FutureTarget<File> future = Glide.with(cordova.getActivity())
+                .load(url)
+                .downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+        try {
+            File file = future.get();
+            if (file != null) {
+                File outputFile = FileUtils.genEditFile();
+                Intent intent = new Intent(cordova.getActivity(), EditImageActivity.class);
+                intent.putExtra("file_path", file.getAbsolutePath());
+                intent.putExtra("extra_output", outputFile.getAbsolutePath());
+                cordova.startActivityForResult(ImageEditorPlugin.this, intent, ACTION_REQUEST_EDITIMAGE);
+            } else {
+                callbackContext.error("Failed to download image");
+            }
+        } catch (Exception e) {
+            callbackContext
+                    .error("Failed to download image");
+        }
     }
 
     public boolean editAction(JSONArray args) {
         try {
-            String destination = FileUtils.genDownloadFile().getAbsolutePath();
-            String targetImageUrl = args.getString(1);
-            downloadImageAndOpenEditor(targetImageUrl, destination);
+            String targetImageUrl = args.getString(0);
+            downloadImageAndOpenEditor(targetImageUrl);
             return true;
         } catch (JSONException e) {
             return false;
@@ -129,7 +132,8 @@ public class ImageEditorPlugin extends CordovaPlugin {
     public boolean assurePermissions() {
         boolean writePermission = PermissionHelper.hasPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         boolean readPermission = PermissionHelper.hasPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (!writePermission || !readPermission) {
+        boolean internetPermission = PermissionHelper.hasPermission(this, Manifest.permission.INTERNET);
+        if (!writePermission || !readPermission || !internetPermission) {
             PermissionHelper.requestPermissions(this, PERMISSION_REQUEST, permissions);
             return false;
         } else {
