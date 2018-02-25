@@ -1,4 +1,4 @@
-Cordova Plugin Template
+Image Editor Plugin for Cordova (currently Android Only)
 ======
 
-This is a simple starting point for building a Cordova plugin on iOS and Android.
+Wrapping [ImageEditor-Android](https://github.com/skonb/ImageEditor-Android) (forked from [original one](https://github.com/siwangqishiq/ImageEditor-Android)) to be used within Cordova applications.
