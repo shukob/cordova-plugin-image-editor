@@ -7,4 +7,5 @@ allprojects {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.github.skonb:ImageEditor-Android:-SNAPSHOT"
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }
