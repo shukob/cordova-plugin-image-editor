@@ -37,7 +37,6 @@
         </config-file>
         <source-file src="src/android/is/w_ax/cordova/imageeditor/ImageEditorPlugin.java" target-dir="src/is/w_ax/cordova/imageeditor/" />
         <source-file src="src/android/is/w_ax/cordova/imageeditor/FileUtils.java" target-dir="src/is/w_ax/cordova/imageeditor/" />
-        <source-file src="src/android/is/w_ax/cordova/imageeditor/PhotoLoader.java" target-dir="src/is/w_ax/cordova/imageeditor/" />
         <framework custom="true" src="src/android/image_editor.gradle" type="gradleReference" />
 
     </platform>
