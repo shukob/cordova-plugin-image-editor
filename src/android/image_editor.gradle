@@ -6,7 +6,7 @@ allprojects {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.github.skonb:Imageeditor-android:a1acc8d47e'
+    implementation 'com.github.skonb:Imageeditor-android:c2edd0e7c8'
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
 }
